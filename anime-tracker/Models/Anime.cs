@@ -19,12 +19,25 @@ namespace anime_tracker.Models
         public int completed_episodes { get; set; }
         public int total_episodes { get; set; }
         public string status { get; set; }
-        public DateTime air_date { get; set; }
+        public DateTime start_date { get; set; }
         public DateTime end_date { get; set; }
         public string activity { get; set; }
         public bool favorite { get; set; }
 
         //anime can have multiple genres
-        //public ICollection<Genre> Genres { get; set; }
+        public ICollection<Genre> Genres { get; set; }
+    }
+
+    public class AnimeDto
+        // simplified view of an anime
+    {
+
+        public int anime_id { get; set; }
+        public string anime_title { get; set; }
+        public string anime_type_name { get; set; }
+        public int rating { get; set; }
+        public string activity { get; set; }
+        public bool favorite { get; set; }
+
     }
 }

@@ -208,6 +208,14 @@
     <Compile Include="Migrations\202301241647580_AnimeXGenres.designer.cs">
       <DependentUpon>202301241647580_AnimeXGenres.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202302111730057_UpdateAnimeXGenres.cs" />
+    <Compile Include="Migrations\202302111730057_UpdateAnimeXGenres.designer.cs">
+      <DependentUpon>202302111730057_UpdateAnimeXGenres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202302111731165_UpdateAnimes.cs" />
+    <Compile Include="Migrations\202302111731165_UpdateAnimes.designer.cs">
+      <DependentUpon>202302111731165_UpdateAnimes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Anime.cs" />
@@ -307,6 +315,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301241647580_AnimeXGenres.resx">
       <DependentUpon>202301241647580_AnimeXGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302111730057_UpdateAnimeXGenres.resx">
+      <DependentUpon>202302111730057_UpdateAnimeXGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302111731165_UpdateAnimes.resx">
+      <DependentUpon>202302111731165_UpdateAnimes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -14,6 +14,6 @@ namespace anime_tracker.Models
         public string genre_name { get; set; }
 
         //genres can belong to more than one anime
-        //public ICollection<Anime> Animes { get; set; }
+        public ICollection<Anime> Animes { get; set; }
     }
 }

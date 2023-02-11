@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using anime_tracker.Migrations;
 using anime_tracker.Models;
 
 namespace anime_tracker.Controllers
@@ -17,22 +18,45 @@ namespace anime_tracker.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         // =============== READ(LIST) ===============
         // GET: api/AnimeData/ListAnimes
-        public IQueryable<Anime> ListAnimes()
+        [HttpGet]
+        public IEnumerable<AnimeDto> ListAnimes()
         {
-            return db.Animes;
+            List<Anime> Animes = db.Animes.ToList();
+            List<AnimeDto> AnimeDtos = new List<AnimeDto>();
+
+            Animes.ForEach(a => AnimeDtos.Add(new AnimeDto()
+            {
+                anime_id = a.anime_id,
+                anime_title = a.anime_title,
+                anime_type_name = a.AnimeTypes.anime_type_name,
+                rating = a.rating,
+                activity = a.activity,
+                favorite = a.favorite,
+            }));
+            return AnimeDtos;
         }
         // =============== READ(FIND) ===============
         // GET: api/AnimeData/FindAnime/5
         [ResponseType(typeof(Anime))]
+        [HttpGet]
         public IHttpActionResult FindAnime(int id)
         {
             Anime anime = db.Animes.Find(id);
+            AnimeDto AnimeDto = new AnimeDto()
+            {
+                anime_id = anime.anime_id,
+                anime_title = anime.anime_title,
+                anime_type_name = anime.AnimeTypes.anime_type_name,
+                rating = anime.rating,
+                activity = anime.activity,
+                favorite = anime.favorite,
+            };
             if (anime == null)
             {
                 return NotFound();
             }
 
-            return Ok(anime);
+            return Ok(AnimeDto);
         }
         // =============== UPDATE ===============
         // POST: api/AnimeData/UpdateAnime/5

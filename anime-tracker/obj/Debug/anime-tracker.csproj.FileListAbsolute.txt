@@ -118,3 +118,5 @@ C:\Users\Anthony\Documents\GitHub\anime-tracker\anime-tracker\obj\Debug\anime_tr
 C:\Users\Anthony\Documents\GitHub\anime-tracker\anime-tracker\obj\Debug\anime_tracker.Migrations.Genres.resources
 C:\Users\Anthony\Documents\GitHub\anime-tracker\anime-tracker\obj\Debug\anime_tracker.Migrations.Animes.resources
 C:\Users\Anthony\Documents\GitHub\anime-tracker\anime-tracker\obj\Debug\anime_tracker.Migrations.AnimeXGenres.resources
+C:\Users\Anthony\Documents\GitHub\anime-tracker\anime-tracker\obj\Debug\anime_tracker.Migrations.UpdateAnimeXGenres.resources
+C:\Users\Anthony\Documents\GitHub\anime-tracker\anime-tracker\obj\Debug\anime_tracker.Migrations.UpdateAnimes.resources
