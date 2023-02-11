@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using anime_tracker.Migrations;
 using anime_tracker.Models;
+using System.Diagnostics;
 
 namespace anime_tracker.Controllers
 {
@@ -64,13 +65,18 @@ namespace anime_tracker.Controllers
         [HttpPost]
         public IHttpActionResult UpdateAnime(int id, Anime anime)
         {
+            Debug.WriteLine("Reached Update Anime method");
             if (!ModelState.IsValid)
             {
+                Debug.WriteLine("Model State is invalid");
                 return BadRequest(ModelState);
             }
 
             if (id != anime.anime_id)
             {
+                Debug.WriteLine("ID mismatch");
+                Debug.WriteLine("GET parameter" + id);
+                Debug.WriteLine("POST parameter" + anime.anime_id);
                 return BadRequest();
             }
 
@@ -84,6 +90,7 @@ namespace anime_tracker.Controllers
             {
                 if (!AnimeExists(id))
                 {
+                    Debug.WriteLine("Anime not found");
                     return NotFound();
                 }
                 else
@@ -92,6 +99,7 @@ namespace anime_tracker.Controllers
                 }
             }
 
+            Debug.WriteLine("None of the conditions triggered");
             return StatusCode(HttpStatusCode.NoContent);
         }
         // =============== CREATE(ADD) ===============

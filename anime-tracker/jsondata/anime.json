@@ -1,13 +1,13 @@
 ﻿{
-  "anime_id": 6,
+  "anime_id": 7,
   "anime_title": "Angel Beats",
   "anime_type_id": 1,
-  "rating": 7,
-  "completed_episodes": 13,
+  "rating": 0,
+  "completed_episodes": 10,
   "total_episodes": 13,
   "status": "Finished",
   "start_date": "2010-04-03",
   "end_date": "2010-06-26",
-  "activity": "Completed",
-  "favorite": true
+  "activity": "Watching",
+  "favorite": false
 }
