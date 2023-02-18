@@ -1,0 +1,16 @@
+﻿@model anime_tracker.Models.AnimeDto
+@{
+    ViewBag.Title = "Details";
+}
+
+<a href="/Anime/List">Go back to Anime Collection</a>
+<h2>@Model.anime_title</h2>
+<div>Type: @Model.anime_type_name</div>
+<div>Status: @Model.status</div>
+<div>Airing Start Date: @Model.start_date</div>
+<div>Airing End Date: @Model.end_date</div>
+<div>Activity: @Model.activity</div>
+<div>Completed Episodes: @Model.completed_episodes</div>
+<div>Total Episodes: @Model.total_episodes</div>
+<div>Rating: @Model.rating/10</div>
+<div>Favourite: @Model.favorite</div>

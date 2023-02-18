@@ -1,0 +1,15 @@
+﻿@model IEnumerable<anime_tracker.Models.AnimeDto>
+@{
+    ViewBag.Title = "Your Anime Collection";
+}
+
+<h2>Your Anime Collection</h2>
+@foreach (var anime in Model)
+{
+    <h2><a href="/Anime/Details/@anime.anime_id">@anime.anime_title</a></h2>
+    <div>Type: @anime.anime_type_name</div>
+    <div>Status: @anime.status</div>
+    <div>Activity: @anime.activity</div>
+    <div>Rating: @anime.rating/10</div>
+    <div>Favourite: @anime.favorite</div>
+}

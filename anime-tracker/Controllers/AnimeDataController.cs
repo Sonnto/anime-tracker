@@ -30,10 +30,15 @@ namespace anime_tracker.Controllers
                 anime_id = a.anime_id,
                 anime_title = a.anime_title,
                 anime_type_name = a.AnimeTypes.anime_type_name,
-                rating = a.rating,
+                status = a.status,
+                start_date = a.start_date,
+                end_date = a.end_date,
                 activity = a.activity,
+                completed_episodes = a.completed_episodes,
+                total_episodes = a.total_episodes,
+                rating = a.rating,
                 favorite = a.favorite,
-            }));
+            })) ;
             return AnimeDtos;
         }
         // =============== READ(FIND) ===============
@@ -48,8 +53,13 @@ namespace anime_tracker.Controllers
                 anime_id = anime.anime_id,
                 anime_title = anime.anime_title,
                 anime_type_name = anime.AnimeTypes.anime_type_name,
-                rating = anime.rating,
+                status = anime.status,
+                start_date = anime.start_date,
+                end_date = anime.end_date,
                 activity = anime.activity,
+                completed_episodes = anime.completed_episodes,
+                total_episodes = anime.total_episodes,
+                rating = anime.rating,
                 favorite = anime.favorite,
             };
             if (anime == null)

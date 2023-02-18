@@ -35,8 +35,13 @@ namespace anime_tracker.Models
         public int anime_id { get; set; }
         public string anime_title { get; set; }
         public string anime_type_name { get; set; }
-        public int rating { get; set; }
+        public string status { get; set; }
+        public DateTime start_date { get; set; }
+        public DateTime end_date { get; set; }
         public string activity { get; set; }
+        public int completed_episodes { get; set; }
+        public int total_episodes { get; set; }
+        public int rating { get; set; }
         public bool favorite { get; set; }
 
     }
