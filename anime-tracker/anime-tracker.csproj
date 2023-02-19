@@ -287,6 +287,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Anime\List.cshtml" />
     <Content Include="Views\Anime\Details.cshtml" />
+    <Content Include="Views\Anime\New.cshtml" />
+    <Content Include="Views\Anime\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

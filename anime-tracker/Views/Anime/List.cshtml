@@ -2,14 +2,27 @@
 @{
     ViewBag.Title = "Your Anime Collection";
 }
+<div>
+    <h2>Your Anime Collection</h2>
+    <h5>| <a href="/Anime/New">Add New Anime</a> |</h5>
+</div>
 
-<h2>Your Anime Collection</h2>
 @foreach (var anime in Model)
 {
-    <h2><a href="/Anime/Details/@anime.anime_id">@anime.anime_title</a></h2>
-    <div>Type: @anime.anime_type_name</div>
-    <div>Status: @anime.status</div>
-    <div>Activity: @anime.activity</div>
-    <div>Rating: @anime.rating/10</div>
-    <div>Favourite: @anime.favorite</div>
+    string fav = "";
+
+    if (anime.favorite == true)
+    {
+        fav = "Yes";
+    }
+    else
+    {
+        fav = "No";
+    }
+    <h2><a href="/Anime/Details/@anime.anime_id"><b>@anime.anime_title</b></a></h2>
+    <div><b>Type: </b>@anime.anime_type_name</div>
+    <div><b>Status: </b>@anime.status</div>
+    <div><b>Activity: </b>@anime.activity</div>
+    <div><b>Rating: </b>@anime.rating/10</div>
+    <div><b>Favourite: </b>@fav</div>
 }

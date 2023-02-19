@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Add New Anime";
+}
+<div>
+    <h2>Add New Anime</h2>
+    <h5>| <a href="/Anime/List">Return to Anime Collection</a> |</h5>
+</div>
+
+<form action="/Anime/Create" method="POST">
+    <div>
+        <label>Title of Anime:</label> <input type="text" name="anime_title" />
+    </div>
+    <div>
+        <label>Type of Anime:</label> <input type="number" name="anime_type_id" /> [1 = TV Series | 2 = Movie | 3 = OVA]
+    </div>
+    @*<div>
+            <label>Genre:</label> <input type="number" name="genre_id" />
+        </div> *@
+    <div>
+        <label>Status:</label> <input type="text" name="status" /> [Upcoming/Airing/Finished]
+    </div>
+    <div>
+        <label>Airing Start Date:</label> <input type="date" name="start_date" />
+    </div>
+    <div>
+        <label>Airing End Date:</label> <input type="date" name="end_date" />
+    </div>
+    <div>
+        <label>Activity:</label> <input type="text" name="activity" /> [Plan To Watch/Watching/Completed]
+    </div>
+    <div>
+        <label>Completed Episodes:</label> <input type="number" name="completed_episodes" />
+    </div>
+    <div>
+        <label>Total Episodes:</label> <input type="number" name="total_episodes" />
+    </div>
+    <div>
+        <label>Rating:</label> <input type="number" name="rating" /> /10
+    </div>
+    <div>
+        <label>Favourite:</label> <input type="checkbox" value="true" name="favorite" /> [Check/Uncheck]
+    </div>
+    <div>
+        <input type="submit" value="Add Anime" />
+    </div>
+</form>
