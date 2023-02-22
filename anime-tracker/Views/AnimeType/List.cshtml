@@ -1,0 +1,14 @@
+﻿@model IEnumerable<anime_tracker.Models.AnimeTypeDto>
+
+@{
+    ViewBag.Title = "List of Types of Anime";
+}
+<div>
+    <h2>List of Types of Anime</h2>
+</div>
+
+@foreach (var animeType in Model)
+{
+    <h2><a href="/AnimeType/Details/@animeType.anime_type_id"><b>@animeType.anime_type_name</b></a></h2>
+    <div><b>Type: </b>@animeType.anime_type_name</div>
+}

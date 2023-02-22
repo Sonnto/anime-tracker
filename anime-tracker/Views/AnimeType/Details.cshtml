@@ -1,0 +1,24 @@
+﻿@model anime_tracker.Models.AnimeDto
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h2>@Model.anime_title</h2>
+    <h5>| <a href="/Anime/List">Return to Anime Collection</a> |
+     <a href="/Anime/Update">Update Anime Information</a> |
+     <a href="/Anime/Delete">Delete Anime</a> | </h5>
+</div>
+<div>
+    <h3>Anime Types Information</h3>
+</div>
+<div><b>Type: </b>@Model.anime_type_name</div>
+@*<div><b>Genre: </b>@Model.genre</div>*@
+<div><b>Status: </b>@Model.status</div>
+<div><b>Airing Start Date: </b>@Model.start_date</div>
+<div><b>Airing End Date: </b>@Model.end_date</div>
+<div><b>Activity: </b>@Model.activity</div>
+<div><b>Completed Episodes: </b>@Model.completed_episodes</div>
+<div><b>Total Episodes: </b>@Model.total_episodes</div>
+<div><b>Rating: </b>@Model.rating/10</div>
+<div><b>Favourite: </b>@Model.favorite</div>

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Diagnostics;
 using anime_tracker.Models;
 using System.Web.Script.Serialization;
+using anime_tracker.Models.ViewModels;
 
 namespace anime_tracker.Controllers
 {
@@ -19,7 +20,7 @@ namespace anime_tracker.Controllers
         static AnimeController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44383/api/animedata/");
+            client.BaseAddress = new Uri("https://localhost:44383/api/");
         }
         // GET: Anime/List
         public ActionResult List()
@@ -27,7 +28,7 @@ namespace anime_tracker.Controllers
             //Objective: communicate with our anime data API to retrieve a list of anime
             //curl https://localhost:44383/api/animedata/listanimes
            
-            string url = "listanimes";
+            string url = "animedata/listanimes";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             Debug.WriteLine("The response code is ");
@@ -47,7 +48,7 @@ namespace anime_tracker.Controllers
             //Objective: communicate with our anime data API to retrieve a specific anime
             //curl https://localhost:44383/api/animedata/findanime/{id}
 
-            string url = "findanime/" + id;
+            string url = "animedata/findanime/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             Debug.WriteLine("The response code is ");
@@ -66,9 +67,16 @@ namespace anime_tracker.Controllers
         }
 
         // GET: Anime/New
+        // =============================================WORKING ON THIS PART==========================================================================================================================
         public ActionResult New()
         {
-            return View();
+            //Information about Anime Types and Genres
+
+            string url = "animetypedata/listanimetypes";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<AnimeTypeDto> animeTypesOptions = response.Content.ReadAsAsync<IEnumerable<AnimeTypeDto>>().Result;
+
+            return View(animeTypesOptions);
         }
 
         // POST: Anime/Create
@@ -79,7 +87,7 @@ namespace anime_tracker.Controllers
             Debug.WriteLine(anime.anime_title);
             //Objective: add a new anime into our system using the API
             //curl -H "Content-Type:application/json" -d anime.json https://localhost:44383/api/animedata/addanime
-            string url = "addanime";
+            string url = "animedata/addanime";
 
             string jsonpayload = jss.Serialize(anime);
 
@@ -104,44 +112,74 @@ namespace anime_tracker.Controllers
         // GET: Anime/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            UpdateAnime ViewModel = new UpdateAnime();
+
+            //the existing anime information
+            
+            string url = "animedata/findanime/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            AnimeDto selectedAnime = response.Content.ReadAsAsync<AnimeDto>().Result;
+            ViewModel.SelectedAnime = selectedAnime;
+
+
+
+            //also include all animeTypes to choose from when updating this anime
+            url = "animetypedata/listanimetype/";
+            response = client.GetAsync(url).Result;
+            IEnumerable<AnimeTypeDto> AnimeTypesOptions = response.Content.ReadAsAsync<IEnumerable<AnimeTypeDto>>().Result;
+
+            ViewModel.AnimeTypesOptions = AnimeTypesOptions;
+
+
+
+            return View(ViewModel);
         }
 
-        // POST: Anime/Edit/5
+        // POST: Anime/Update/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(int id, Anime anime)
         {
-            try
+            string url = "animedata/updateanime/" + id;
+            string jsonpayload = jss.Serialize(anime);
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            Debug.WriteLine(content);
+            if(response.IsSuccessStatusCode)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Error");
             }
         }
 
         // GET: Anime/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            string url = "animedata/findanime/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            AnimeDto selectedAnime = response.Content.ReadAsAsync<AnimeDto>().Result;
+            return View(selectedAnime);
         }
 
         // POST: Anime/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string url = "animedata/deleteanime/" + id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
     }

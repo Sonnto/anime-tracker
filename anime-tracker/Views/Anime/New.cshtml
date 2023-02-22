@@ -1,10 +1,11 @@
-﻿
+﻿@model IEnumerable<anime_tracker.Models.AnimeTypeDto>
+
 @{
     ViewBag.Title = "Add New Anime";
 }
 <div>
     <h2>Add New Anime</h2>
-    <h5>| <a href="/Anime/List">Return to Anime Collection</a> |</h5>
+    <h5>| <a href="/Anime/List">Cancel Adding & Return to Anime Collection</a> |</h5>
 </div>
 
 <form action="/Anime/Create" method="POST">
@@ -12,13 +13,28 @@
         <label>Title of Anime:</label> <input type="text" name="anime_title" />
     </div>
     <div>
-        <label>Type of Anime:</label> <input type="number" name="anime_type_id" /> [1 = TV Series | 2 = Movie | 3 = OVA]
+        <label>Type of Anime:</label>
+        <select name="anime_type_id">
+            @foreach (var animeType in Model)
+            {
+                <option value="@animeType.anime_type_id">@animeType.anime_type_name</option>
+            }
+        </select>
     </div>
     @*<div>
-            <label>Genre:</label> <input type="number" name="genre_id" />
+            <label>Genre:</label>
+                @foreach(var genre in Model)
+            {
+            <option value="@genre.genre_id">@genre.genre_name</option>
+            }
         </div> *@
     <div>
-        <label>Status:</label> <input type="text" name="status" /> [Upcoming/Airing/Finished]
+        <label>Status:</label>
+        <select name="status">
+            <option value="Upcoming">Upcoming</option>
+            <option value="Airing">Airing</option>
+            <option value="Finished">Finished</option>
+        </select>
     </div>
     <div>
         <label>Airing Start Date:</label> <input type="date" name="start_date" />
@@ -27,7 +43,12 @@
         <label>Airing End Date:</label> <input type="date" name="end_date" />
     </div>
     <div>
-        <label>Activity:</label> <input type="text" name="activity" /> [Plan To Watch/Watching/Completed]
+        <label>Activity:</label>
+        <select name="activity">
+            <option value="Plan to Watch">Plan to Watch</option>
+            <option value="Watching">Watching</option>
+            <option value="Completed">Completed</option>
+        </select>
     </div>
     <div>
         <label>Completed Episodes:</label> <input type="number" name="completed_episodes" />
@@ -36,10 +57,24 @@
         <label>Total Episodes:</label> <input type="number" name="total_episodes" />
     </div>
     <div>
-        <label>Rating:</label> <input type="number" name="rating" /> /10
+        <label>Rating:</label>
+        <select name="rating">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        /10
     </div>
     <div>
-        <label>Favourite:</label> <input type="checkbox" value="true" name="favorite" /> [Check/Uncheck]
+        <label>Favourite:</label> <input type="checkbox" value="true" name="favorite" />
     </div>
     <div>
         <input type="submit" value="Add Anime" />

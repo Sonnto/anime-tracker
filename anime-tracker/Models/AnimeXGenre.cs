@@ -18,4 +18,11 @@ namespace anime_tracker.Models
         public int genre_id { get; set; }
         public virtual Genre Genres { get; set; }
     }
+
+    public class AnimeXGenreDto
+    {
+        public int animexgenre_id { get; set; }
+        public int anime_id { get; set; }
+        public string genre_name { get; set; }
+    }
 }

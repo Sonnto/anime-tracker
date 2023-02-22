@@ -43,6 +43,7 @@ namespace anime_tracker.Models
         public int total_episodes { get; set; }
         public int rating { get; set; }
         public bool favorite { get; set; }
+        public ICollection<Genre> Genres { get; set; }
 
     }
 }

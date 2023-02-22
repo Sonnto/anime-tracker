@@ -12,4 +12,10 @@ namespace anime_tracker.Models
         public int anime_type_id { get; set; }
         public string anime_type_name { get; set; }
     }
+
+    public class AnimeTypeDto
+    {
+        public int anime_type_id { get; set; }
+        public string anime_type_name { get; set; }
+    }
 }
