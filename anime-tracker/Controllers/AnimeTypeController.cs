@@ -64,8 +64,7 @@ namespace anime_tracker.Controllers
 
             url = "animedata/listanimeforanimetype/" + id;
             response = client.GetAsync(url).Result;
-
-
+            IEnumerable<AnimeDto> RelatedAnimes = response.Content.ReadAsAsync<IEnumerable<AnimeDto>>().Result;
 
             ViewModel.RelatedAnimes = RelatedAnimes;
 
