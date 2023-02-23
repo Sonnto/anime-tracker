@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Diagnostics;
 using anime_tracker.Models;
 using System.Web.Script.Serialization;
+using anime_tracker.Models.ViewModels;
 
 namespace anime_tracker.Controllers
 {
@@ -47,6 +48,8 @@ namespace anime_tracker.Controllers
             //Objective: communicate with our animeType data API to retrieve a specific animeType
             //curl https://localhost:44383/api/animetypedata/findanimetype/{id}
 
+            DetailsAnimeTypes ViewModel = new DetailsAnimeTypes();
+
             string url = "animetypedata/findanimetype/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
@@ -59,9 +62,16 @@ namespace anime_tracker.Controllers
 
             //showcase info about anime related to specific anime types
 
+            url = "animedata/listanimeforanimetype/" + id;
+            response = client.GetAsync(url).Result;
+
+
+
+            ViewModel.RelatedAnimes = RelatedAnimes;
+
             //=============WORKING ON THIS============
 
-            return View(selectedAnimeType);
+            return View(ViewModel);
         }
 
         public ActionResult Error()

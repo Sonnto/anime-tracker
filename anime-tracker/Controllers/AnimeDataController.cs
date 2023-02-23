@@ -85,8 +85,8 @@ namespace anime_tracker.Controllers
             if (id != anime.anime_id)
             {
                 Debug.WriteLine("ID mismatch");
-                Debug.WriteLine("GET parameter" + id);
-                Debug.WriteLine("POST parameter" + anime.anime_id);
+                Debug.WriteLine("GET parameter" + " " + id);
+                Debug.WriteLine("POST parameter" + " " + anime.anime_id);
                 return BadRequest();
             }
 
@@ -143,7 +143,7 @@ namespace anime_tracker.Controllers
             db.Animes.Remove(anime);
             db.SaveChanges();
 
-            return Ok(anime);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

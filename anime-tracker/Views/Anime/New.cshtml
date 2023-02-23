@@ -5,7 +5,9 @@
 }
 <div>
     <h2>Add New Anime</h2>
-    <h5>| <a href="/Anime/List">Cancel Adding & Return to Anime Collection</a> |</h5>
+    <nav>
+        <h5>| <a href="/Anime/List"><b>Cancel Adding & Return</b> to Anime Collection</a> |</h5>
+    </nav>
 </div>
 
 <form action="/Anime/Create" method="POST">
@@ -37,10 +39,10 @@
         </select>
     </div>
     <div>
-        <label>Airing Start Date:</label> <input type="date" name="start_date" />
+        <label>Airing Start Date:</label> <input type="datetime" name="start_date" placeholder="YYYY-MM-DD 12:00:00 AM" value=""/> [Currently must be added with " 12:00:00 AM" attached to the end]
     </div>
     <div>
-        <label>Airing End Date:</label> <input type="date" name="end_date" />
+        <label>Airing End Date:</label> <input type="datetime" name="end_date" placeholder="YYYY-MM-DD 12:00:00 AM" value="" /> [Currently must be added with " 12:00:00 AM" attached to the end]
     </div>
     <div>
         <label>Activity:</label>
@@ -74,7 +76,9 @@
         /10
     </div>
     <div>
-        <label>Favourite:</label> <input type="checkbox" value="true" name="favorite" />
+        <label>Favourite:</label>
+        <input type="checkbox" name="favorite" value="true" />
+        <input type="hidden" name="favorite" value="false" />
     </div>
     <div>
         <input type="submit" value="Add Anime" />

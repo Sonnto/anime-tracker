@@ -1,23 +1,34 @@
 ﻿@model anime_tracker.Models.ViewModels.UpdateAnime
 
 @{
-    ViewBag.Title = "Add New Anime";
+    ViewBag.Title = "Edit Anime";
 }
 <div>
-    <h2>Add New Anime</h2>
-    <h5>| <a href="/Anime/Details/@Model.SelectedAnime.anime_id">Cancel Editing & Return to Anime Collection</a> |</h5>
+    <h2>Update Anime: @Model.SelectedAnime.anime_title</h2>
+    <nav>
+        <h5>| <a href="/Anime/Details/@Model.SelectedAnime.anime_id"><b>Cancel Updating & Return</b> to Anime Collection</a> |</h5>
+    </nav>
 </div>
 
-<form action="/Anime/Create" method="POST">
+<form action="/Anime/Update/@Model.SelectedAnime.anime_id" method="POST">
+    <div style="display:none;">
+        @* Pass through the animal ID *@
+        <input type="text" name="anime_id" value="@Model.SelectedAnime.anime_id" />
+    </div>
     <div>
-        <label>Title of Anime:</label> <input type="text" name="anime_title" value="@Model.SelectedAnime.anime_title"/>
+        <label>Title of Anime:</label> <input type="text" name="anime_title" value="@Model.SelectedAnime.anime_title" />
     </div>
     <div>
         <label>Type of Anime:</label>
         <select name="anime_type_id">
             @foreach (var animeType in Model.AnimeTypesOptions)
             {
-                <option value="@animeType.anime_type_id">@animeType.anime_type_name</option>
+                var selected = "";
+                if (animeType.anime_type_id == Model.SelectedAnime.anime_type_id)
+                {
+                    selected = "selected";
+                }
+                <option value="@animeType.anime_type_id" @selected>@animeType.anime_type_name</option>
             }
         </select>
     </div>
@@ -30,51 +41,55 @@
         </div> *@
     <div>
         <label>Status:</label>
-        <select name="status" value="@Model.SelectedAnime.status">
-            <option value="Upcoming">Upcoming</option>
-            <option value="Airing">Airing</option>
-            <option value="Finished">Finished</option>
+        <select name="status">
+            <option value="Upcoming" @(Model.SelectedAnime.status == "Upcoming" ? "selected" : "")>Upcoming</option>
+            <option value="Airing" @(Model.SelectedAnime.status == "Airing" ? "selected" : "")>Airing</option>
+            <option value="Finished" @(Model.SelectedAnime.status == "Finished" ? "selected" : "")>Finished</option>
         </select>
     </div>
     <div>
-        <label>Airing Start Date:</label> <input type="date" name="start_date" value="@Model.SelectedAnime.start_date"/>
+        <label>Airing Start Date:</label>
+        <input type="datetime" name="start_date" value="@Model.SelectedAnime.start_date" />
     </div>
     <div>
-        <label>Airing End Date:</label> <input type="date" name="end_date" value="@Model.SelectedAnime.end_date"/>
+        <label>Airing End Date:</label>
+        <input type="datetime" name="end_date" value="@Model.SelectedAnime.end_date" />
     </div>
     <div>
         <label>Activity:</label>
-        <select name="activity" value="@Model.SelectedAnime.activity">
-            <option value="Plan to Watch">Plan to Watch</option>
-            <option value="Watching">Watching</option>
-            <option value="Completed">Completed</option>
+        <select name="activity">
+            <option value="Plan to Watch" @(Model.SelectedAnime.activity == "Plan to Watch" ? "selected" : "")>Plan to Watch</option>
+            <option value="Watching" @(Model.SelectedAnime.activity == "Watching" ? "selected" : "")>Watching</option>
+            <option value="Completed" @(Model.SelectedAnime.activity == "Completed" ? "selected" : "")>Completed</option>
         </select>
     </div>
     <div>
-        <label>Completed Episodes:</label> <input type="number" name="completed_episodes" value="@Model.SelectedAnime.completed_episodes"/>
+        <label>Completed Episodes:</label> <input type="number" name="completed_episodes" value="@Model.SelectedAnime.completed_episodes" />
     </div>
     <div>
         <label>Total Episodes:</label> <input type="number" name="total_episodes" value="@Model.SelectedAnime.total_episodes" />
     </div>
     <div>
         <label>Rating:</label>
-        <select name="rating" value="@Model.SelectedAnime.rating">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
+        <select name="rating">
+            <option value="0" @(Model.SelectedAnime.rating == 0 ? "selected" : "")>0</option>
+            <option value="1" @(Model.SelectedAnime.rating == 1 ? "selected" : "")>1</option>
+            <option value="2" @(Model.SelectedAnime.rating == 2 ? "selected" : "")>2</option>
+            <option value="3" @(Model.SelectedAnime.rating == 3 ? "selected" : "")>3</option>
+            <option value="4" @(Model.SelectedAnime.rating == 4 ? "selected" : "")>4</option>
+            <option value="5" @(Model.SelectedAnime.rating == 5 ? "selected" : "")>5</option>
+            <option value="6" @(Model.SelectedAnime.rating == 6 ? "selected" : "")>6</option>
+            <option value="7" @(Model.SelectedAnime.rating == 7 ? "selected" : "")>7</option>
+            <option value="8" @(Model.SelectedAnime.rating == 8 ? "selected" : "")>8</option>
+            <option value="9" @(Model.SelectedAnime.rating == 9 ? "selected" : "")>9</option>
+            <option value="10" @(Model.SelectedAnime.rating == 10 ? "selected" : "")>10</option>
         </select>
         /10
     </div>
     <div>
-        <label>Favourite:</label> <input type="checkbox" value="@Model.SelectedAnime.favorite" name="favorite" />
+        <label>Favourite:</label>
+        <input type="checkbox" @(Model.SelectedAnime.favorite ? "checked" : "") name="favorite" value="true" />
+        <input type="hidden" name="favorite" value="false" />
     </div>
     <div>
         <input type="submit" value="Update Anime" />

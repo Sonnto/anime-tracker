@@ -20,7 +20,8 @@ namespace anime_tracker.Controllers
         // =============== READ(LIST) ===============
         // GET: api/AnimeTypeData/ListAnimeTypes
         [HttpGet]
-        public IEnumerable<AnimeTypeDto> ListAnimeTypes()
+        [ResponseType(typeof(AnimeTypeDto))]
+        public IHttpActionResult ListAnimeTypes()
         {
             List<AnimeType> AnimeTypes = db.AnimeTypes.ToList();
             List<AnimeTypeDto> AnimeTypeDtos = new List<AnimeTypeDto>();
@@ -30,7 +31,7 @@ namespace anime_tracker.Controllers
                 anime_type_id = at.anime_type_id,
                 anime_type_name = at.anime_type_name,
             })) ;
-            return AnimeTypeDtos;
+            return Ok(AnimeTypeDtos);
         }
         // =============== READ(FIND) ===============
         // GET: api/AnimeTypeData/FindAnimeType/5

@@ -8,6 +8,7 @@ using System.Diagnostics;
 using anime_tracker.Models;
 using System.Web.Script.Serialization;
 using anime_tracker.Models.ViewModels;
+using System.Globalization;
 
 namespace anime_tracker.Controllers
 {
@@ -45,6 +46,8 @@ namespace anime_tracker.Controllers
         // GET: Anime/Details/5
         public ActionResult Details(int id)
         {
+            DetailsAnime ViewModel = new DetailsAnime();
+
             //Objective: communicate with our anime data API to retrieve a specific anime
             //curl https://localhost:44383/api/animedata/findanime/{id}
 
@@ -58,7 +61,13 @@ namespace anime_tracker.Controllers
             Debug.WriteLine("Anime received: ");
             Debug.WriteLine(selectedAnime.anime_title);
 
-            return View(selectedAnime);
+            ViewModel.SelectedAnime = selectedAnime;
+
+            //show associated genres with this anime between here
+
+            //show associated genres with this anime between here
+
+            return View(ViewModel);
         }
 
         public ActionResult Error()
@@ -83,6 +92,8 @@ namespace anime_tracker.Controllers
         [HttpPost]
         public ActionResult Create(Anime anime)
         {
+            // Parses dates from input string
+
             Debug.WriteLine("The inputted anime name is: ");
             Debug.WriteLine(anime.anime_title);
             //Objective: add a new anime into our system using the API
@@ -124,13 +135,11 @@ namespace anime_tracker.Controllers
 
 
             //also include all animeTypes to choose from when updating this anime
-            url = "animetypedata/listanimetype/";
+            url = "animetypedata/listanimetypes/";
             response = client.GetAsync(url).Result;
             IEnumerable<AnimeTypeDto> AnimeTypesOptions = response.Content.ReadAsAsync<IEnumerable<AnimeTypeDto>>().Result;
 
             ViewModel.AnimeTypesOptions = AnimeTypesOptions;
-
-
 
             return View(ViewModel);
         }
@@ -147,16 +156,19 @@ namespace anime_tracker.Controllers
             Debug.WriteLine(content);
             if(response.IsSuccessStatusCode)
             {
+                Debug.WriteLine(content);
                 return RedirectToAction("List");
             }
             else
             {
+                Debug.WriteLine(content);
                 return RedirectToAction("Error");
             }
         }
 
         // GET: Anime/Delete/5
-        public ActionResult Delete(int id)
+        
+        public ActionResult DeleteConfirm(int id)
         {
             string url = "animedata/findanime/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
@@ -166,7 +178,7 @@ namespace anime_tracker.Controllers
 
         // POST: Anime/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             string url = "animedata/deleteanime/" + id;
             HttpContent content = new StringContent("");

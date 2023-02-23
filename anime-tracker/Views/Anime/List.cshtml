@@ -4,21 +4,14 @@
 }
 <div>
     <h2>Your Anime Collection</h2>
-    <h5>| <a href="/Anime/New">Add New Anime</a> |</h5>
+    <nav>
+        <h5>| <a href="/Anime/New"><b>Add</b> New Anime</a> |</h5>
+    </nav>
 </div>
 
 @foreach (var anime in Model)
 {
-    string fav = "";
-
-    if (anime.favorite == true)
-    {
-        fav = "Yes";
-    }
-    else
-    {
-        fav = "No";
-    }
+    string fav = anime.favorite ? "Yes" : "No";
     <h2><a href="/Anime/Details/@anime.anime_id"><b>@anime.anime_title</b></a></h2>
     <div><b>Type: </b>@anime.anime_type_name</div>
     <div><b>Status: </b>@anime.status</div>

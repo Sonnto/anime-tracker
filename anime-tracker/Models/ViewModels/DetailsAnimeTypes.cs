@@ -8,8 +8,8 @@ namespace anime_tracker.Models.ViewModels
 {
     public class DetailsAnimeTypes
     {
-        public AnimeTypes SelectedAnimeTypes { get; set; }
-        public IEnumerable<AnimeDto> RelatedAnimeTypes { get; set; }
+        public AnimeTypeDto SelectedAnimeType { get; set; }
+        public IEnumerable<AnimeDto> RelatedAnimes { get; set; }
     }
 }
 
