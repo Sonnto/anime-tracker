@@ -188,7 +188,6 @@
     <Compile Include="Controllers\AnimeTypeController.cs" />
     <Compile Include="Controllers\AnimeController.cs" />
     <Compile Include="Controllers\AnimeDataController.cs" />
-    <Compile Include="Controllers\AnimeXGenreDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -230,6 +229,7 @@
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\DetailsGenre.cs" />
     <Compile Include="Models\ViewModels\DetailsAnime.cs" />
     <Compile Include="Models\ViewModels\DetailsAnimeTypes.cs" />
     <Compile Include="Models\ViewModels\UpdateAnime.cs" />
@@ -302,11 +302,12 @@
     <Content Include="Views\AnimeType\Error.cshtml" />
     <Content Include="Views\Anime\Edit.cshtml" />
     <Content Include="Views\Anime\DeleteConfirm.cshtml" />
+    <Content Include="Views\Genre\List.cshtml" />
+    <Content Include="Views\Genre\Error.cshtml" />
+    <Content Include="Views\Genre\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AnimeXGenre\" />
-    <Folder Include="Views\Genre\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

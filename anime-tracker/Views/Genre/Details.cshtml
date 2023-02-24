@@ -1,0 +1,22 @@
+﻿@model anime_tracker.Models.ViewModels.DetailsGenre
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h2>@Model.SelectedGenre.genre_name Anime</h2>
+    <nav>
+        <h5>| <a href="/Genre/List"><b>Return</b> to List of Anime Genres</a> |</h5>
+    </nav>
+</div>
+<div>
+    <ol>
+        @foreach (var anime in Model.TaggedAnimes)
+        {
+            <li>
+                <i><a href="/Anime/Details/@anime.anime_id">@anime.anime_title</a></i>
+            </li>
+        }
+    </ol>
+</div>

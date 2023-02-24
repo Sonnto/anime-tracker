@@ -1,0 +1,13 @@
+﻿@model IEnumerable<anime_tracker.Models.GenreDto>
+
+@{
+    ViewBag.Title = "List of Genres of Anime";
+}
+<div>
+    <h2>List of Anime Genres</h2>
+</div>
+
+@foreach (var genre in Model)
+{
+    <h2><a href="/Genre/Details/@genre.genre_id"><b>@genre.genre_name</b></a></h2>
+}

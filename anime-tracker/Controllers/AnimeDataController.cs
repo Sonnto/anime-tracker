@@ -20,7 +20,8 @@ namespace anime_tracker.Controllers
         // =============== READ(LIST) ===============
         // GET: api/AnimeData/ListAnimes
         [HttpGet]
-        public IEnumerable<AnimeDto> ListAnimes()
+        [ResponseType(typeof(AnimeDto))]
+        public IHttpActionResult ListAnimes()
         {
             List<Anime> Animes = db.Animes.ToList();
             List<AnimeDto> AnimeDtos = new List<AnimeDto>();
@@ -29,6 +30,7 @@ namespace anime_tracker.Controllers
             {
                 anime_id = a.anime_id,
                 anime_title = a.anime_title,
+                anime_type_id = a.anime_type_id,
                 anime_type_name = a.AnimeTypes.anime_type_name,
                 status = a.status,
                 start_date = a.start_date,
@@ -39,8 +41,114 @@ namespace anime_tracker.Controllers
                 rating = a.rating,
                 favorite = a.favorite,
             })) ;
-            return AnimeDtos;
+            return Ok(AnimeDtos);
         }
+
+        // =============== READ(LIST) ===============
+        // GET: api/AnimeData/ListAnimesForAnimeType
+        [HttpGet]
+        [ResponseType(typeof(AnimeDto))]
+        public IHttpActionResult ListAnimesForAnimeType(int id)
+        {
+            List<Anime> Animes = db.Animes.Where(a=>a.anime_type_id==id).ToList();
+            List<AnimeDto> AnimeDtos = new List<AnimeDto>();
+
+            Animes.ForEach(a => AnimeDtos.Add(new AnimeDto()
+            {
+                anime_id = a.anime_id,
+                anime_title = a.anime_title,
+                anime_type_id = a.anime_type_id,
+                anime_type_name = a.AnimeTypes.anime_type_name,
+                status = a.status,
+                start_date = a.start_date,
+                end_date = a.end_date,
+                activity = a.activity,
+                completed_episodes = a.completed_episodes,
+                total_episodes = a.total_episodes,
+                rating = a.rating,
+                favorite = a.favorite,
+            }));
+            return Ok(AnimeDtos);
+        }
+
+        // =============== READ(LIST) ===============
+        // GET: api/AnimeData/ListAnimesForGenre
+        [HttpGet]
+        [ResponseType(typeof(AnimeDto))]
+        public IHttpActionResult ListAnimesForGenre(int id)
+        {
+            //ask anime that have genres that match our ID
+            List<Anime> Animes = db.Animes.Where(
+                a=>a.Genres.Any(g=>g.genre_id==id)).ToList();
+            List<AnimeDto> AnimeDtos = new List<AnimeDto>();
+
+            Animes.ForEach(a => AnimeDtos.Add(new AnimeDto()
+            {
+                anime_id = a.anime_id,
+                anime_title = a.anime_title,
+                anime_type_id = a.anime_type_id,
+                anime_type_name = a.AnimeTypes.anime_type_name,
+                status = a.status,
+                start_date = a.start_date,
+                end_date = a.end_date,
+                activity = a.activity,
+                completed_episodes = a.completed_episodes,
+                total_episodes = a.total_episodes,
+                rating = a.rating,
+                favorite = a.favorite,
+            }));
+            return Ok(AnimeDtos);
+        }
+
+        // POST: api/AnimeData/AssociateAnimeWithGenre/{anime_id}/{genre_id}
+        [HttpPost]
+        [Route("api/animedata/associateanimewithgenre/{anime_id}/{genre_id}")]
+        public IHttpActionResult AssociateAnimeWithGenre(int anime_id, int genre_id)
+        {
+            Anime selectedAnime = db.Animes.Include
+                (a => a.Genres).Where
+                (a => a.anime_id == anime_id).FirstOrDefault();
+            Genre selectedGenre = db.Genres.Find(genre_id);
+
+            if(selectedAnime == null || selectedGenre == null)
+            {
+                return NotFound();
+            }
+            Debug.WriteLine("Input anime id is: " + anime_id);
+            Debug.WriteLine("Selected anime title is: " + selectedAnime.anime_title);
+            Debug.WriteLine("Input genre id to be added: " + genre_id);
+            Debug.WriteLine("Selected genre name to be added: " + selectedGenre.genre_name);
+
+            selectedAnime.Genres.Add(selectedGenre);
+            db.SaveChanges();
+
+            return Ok();
+        }
+
+        // POST: api/AnimeData/UnAssociateAnimeWithGenre/{anime_id}/{genre_id}
+        [HttpPost]
+        [Route("api/animedata/unassociateanimewithgenre/{anime_id}/{genre_id}")]
+        public IHttpActionResult UnAssociateAnimeWithGenre(int anime_id, int genre_id)
+        {
+            Anime selectedAnime = db.Animes.Include(a => a.Genres).Where(a => a.anime_id == anime_id).FirstOrDefault();
+            Genre selectedGenre = db.Genres.Find(genre_id);
+
+            if (selectedAnime == null || selectedGenre == null)
+            {
+                return NotFound();
+            }
+            Debug.WriteLine("Input anime id is: " + anime_id);
+            Debug.WriteLine("Selected anime title is: " + selectedAnime.anime_title);
+            Debug.WriteLine("Input genre id to be removed: " + genre_id);
+            Debug.WriteLine("Selected genre name to be removed: " + selectedGenre.genre_name);
+
+            selectedAnime.Genres.Remove(selectedGenre);
+            db.SaveChanges();
+
+            return Ok();
+        }
+
+
         // =============== READ(FIND) ===============
         // GET: api/AnimeData/FindAnime/5
         [ResponseType(typeof(Anime))]
@@ -69,6 +177,7 @@ namespace anime_tracker.Controllers
 
             return Ok(AnimeDto);
         }
+
         // =============== UPDATE ===============
         // POST: api/AnimeData/UpdateAnime/5
         [ResponseType(typeof(void))]

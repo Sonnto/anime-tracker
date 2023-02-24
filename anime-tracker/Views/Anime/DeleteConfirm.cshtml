@@ -4,26 +4,13 @@
     ViewBag.Title = "DeleteConfirm";
 }
 
-<h2>Are you sure you want to delete @Model.anime_title?</h2>
+<h2>Delete Anime: <i>@Model.anime_title</i>?</h2>
 <nav>
     <h5>
-        | <a href="/Anime/List"><b>Cancel Deletion & Return</b> to Anime Collection</a> |
-        <a href="/Anime/Edit/@Model.anime_id"><b>Update</b> Anime Information</a> |
+        | <a href="/Anime/Details/@Model.anime_id"><b>Cancel Deletion & Return</b> to Anime Details</a> |
+        <a href="/Anime/Edit/@Model.anime_id"><b>Edit</b> Anime Information</a> |
     </h5>
 </nav>
-<div>
-    <h3>@Model.anime_title Information</h3>
-</div>
-<div><b>Type: </b>@Model.anime_type_name</div>
-@*<div><b>Genre: </b>@Model.genre</div>*@
-<div><b>Status: </b>@Model.status</div>
-<div><b>Airing Start Date: </b>@Model.start_date</div>
-<div><b>Airing End Date: </b>@Model.end_date</div>
-<div><b>Activity: </b>@Model.activity</div>
-<div><b>Completed Episodes: </b>@Model.completed_episodes</div>
-<div><b>Total Episodes: </b>@Model.total_episodes</div>
-<div><b>Rating: </b>@Model.rating/10</div>
-<div><b>Favourite: </b>@(Model.favorite ? "Yes" : "No")</div>
 <form action="/Anime/Delete/@Model.anime_id" method="POST">
     <input type="submit" value="Confirm Deletion"/>
 </form>

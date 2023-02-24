@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Diagnostics;
 using anime_tracker.Models;
 using System.Web.Script.Serialization;
+using anime_tracker.Models.ViewModels;
 
 namespace anime_tracker.Controllers
 {
@@ -41,9 +42,11 @@ namespace anime_tracker.Controllers
             return View(genres);
         }
 
-        // GET: AnimeType/Details/5
+        // GET: Genre/Details/5
         public ActionResult Details(int id)
         {
+
+            DetailsGenre ViewModel = new DetailsGenre();
             //Objective: communicate with our genre data API to retrieve a specific genre
             //curl https://localhost:44383/api/genredata/findgenre/{id}
 
@@ -54,10 +57,19 @@ namespace anime_tracker.Controllers
             Debug.WriteLine(response.StatusCode);
 
             GenreDto selectedGenre = response.Content.ReadAsAsync<GenreDto>().Result;
-            Debug.WriteLine("Anime Type received: ");
+            Debug.WriteLine("Genre received: ");
             Debug.WriteLine(selectedGenre.genre_name);
 
-            return View(selectedGenre);
+            ViewModel.SelectedGenre = selectedGenre;
+
+            //show all anime tagged with this genre
+            url = "animedata/listanimesforgenre/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<AnimeDto> TaggedAnimes = response.Content.ReadAsAsync<IEnumerable<AnimeDto>>().Result;
+
+            ViewModel.TaggedAnimes = TaggedAnimes;
+
+            return View(ViewModel);
         }
 
         public ActionResult Error()

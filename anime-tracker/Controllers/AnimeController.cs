@@ -65,9 +65,49 @@ namespace anime_tracker.Controllers
 
             //show associated genres with this anime between here
 
-            //show associated genres with this anime between here
+            url = "genredata/listgenresforanime/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<GenreDto> TaggedGenres = response.Content.ReadAsAsync<IEnumerable<GenreDto>>().Result;
+
+            ViewModel.TaggedGenres = TaggedGenres;
+
+            url = "genredata/listgenresnotforanime/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<GenreDto> AvailableGenres = response.Content.ReadAsAsync<IEnumerable<GenreDto>>().Result;
+
+            ViewModel.AvailableGenres = AvailableGenres;
 
             return View(ViewModel);
+        }
+
+        //POST: Anime/Associate/{animeid}
+        [HttpPost]
+
+        public ActionResult Associate(int id, int genre_id)
+        {
+            Debug.WriteLine("Attempting to associate anime: " + id + " with genre: " + genre_id);
+            //call API to associate anime with genre
+            string url = "animedata/associateanimewithgenre/" + id + "/" + genre_id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            return RedirectToAction("Details/" + id);
+        }
+
+        //Get: Anime/UnAssociate/{id}?genre_id={genre_id}
+        [HttpGet]
+
+        public ActionResult UnAssociate(int id, int genre_id)
+        {
+            Debug.WriteLine("Attempting to unassociate anime: " + id + " with genre: " + genre_id);
+            //call API to unassociate anime with genre
+            string url = "animedata/unassociateanimewithgenre/" + id + "/" + genre_id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            return RedirectToAction("Details/" + id);
         }
 
         public ActionResult Error()

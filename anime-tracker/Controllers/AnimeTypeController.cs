@@ -60,15 +60,16 @@ namespace anime_tracker.Controllers
             Debug.WriteLine("Anime Type received: ");
             Debug.WriteLine(selectedAnimeType.anime_type_name);
 
-            //showcase info about anime related to specific anime types
+            ViewModel.SelectedAnimeType = selectedAnimeType;
 
-            url = "animedata/listanimeforanimetype/" + id;
+            //showcase info about anime related to specific anime types
+            //send request to gather info about anime related to a specific anime type id.
+
+            url = "animedata/listanimesforanimetype/" + id;
             response = client.GetAsync(url).Result;
             IEnumerable<AnimeDto> RelatedAnimes = response.Content.ReadAsAsync<IEnumerable<AnimeDto>>().Result;
 
             ViewModel.RelatedAnimes = RelatedAnimes;
-
-            //=============WORKING ON THIS============
 
             return View(ViewModel);
         }

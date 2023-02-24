@@ -32,8 +32,50 @@ namespace anime_tracker.Controllers
             }));
             return GenreDtos;
         }
+
+        // GET: api/GenreData/ListGenresForAnime/{anime_id}
+        [HttpGet]
+        [ResponseType(typeof(GenreDto))]
+        public IHttpActionResult ListGenresForAnime(int id)
+        {
+            List<Genre> Genres = db.Genres.Where(
+                g => g.Animes.Any(
+                    a => a.anime_id == id)
+                ).ToList();
+            List<GenreDto> GenreDtos = new List<GenreDto>();
+
+            Genres.ForEach(g => GenreDtos.Add(new GenreDto()
+            {
+                genre_id = g.genre_id,
+                genre_name = g.genre_name,
+            }));
+
+            return Ok(GenreDtos);
+        }
+
+        // GET: api/GenreData/ListGenresForAnime/{anime_id}
+        [HttpGet]
+        [ResponseType(typeof(GenreDto))]
+        public IHttpActionResult ListGenresNotForAnime(int id)
+        {
+            List<Genre> Genres = db.Genres.Where(
+                g => !g.Animes.Any(
+                    a => a.anime_id == id)
+                ).ToList();
+            List<GenreDto> GenreDtos = new List<GenreDto>();
+
+            Genres.ForEach(g => GenreDtos.Add(new GenreDto()
+            {
+                genre_id = g.genre_id,
+                genre_name = g.genre_name,
+            }));
+
+            return Ok(GenreDtos);
+        }
+
+
         // =============== READ(FIND) ===============
-        // GET: api/AnimeData/FindAnime/5
+        // GET: api/GenreData/FindGenre/5
         [ResponseType(typeof(Genre))]
         [HttpGet]
         public IHttpActionResult FindGenre(int id)

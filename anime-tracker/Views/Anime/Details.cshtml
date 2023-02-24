@@ -4,20 +4,38 @@
 }
 
 <div>
-    <h2>@Model.SelectedAnime.anime_title</h2>
+    <h2><i>@Model.SelectedAnime.anime_title</i></h2>
     <nav>
         <h5>
             | <a href="/Anime/List"><b>Return</b> to Anime Collection</a> |
-            <a href="/Anime/Edit/@Model.SelectedAnime.anime_id"><b>Update</b> Anime Information</a> |
-            <a href="/Anime/DeleteConfirm/@Model.SelectedAnime.anime_id"><b>Delete</b> Anime</a> |
+            <a href="/Anime/Edit/@Model.SelectedAnime.anime_id"><b>Edit</b> Anime Information</a> |
+            <a href="/Anime/DeleteConfirm/@Model.SelectedAnime.anime_id"><b style="color: red">Delete</b> Anime</a> |
         </h5>
     </nav>
 </div>
-<div>
-    <h3>Information</h3>
-</div>
+
+<h3>Information</h3>
 <div><b>Type: </b>@Model.SelectedAnime.anime_type_name</div>
-@*<div><b>Genre: </b>@Model.genre</div>*@
+<div>
+    <b>@(Model.TaggedGenres.Count() <= 1 ? "Genre: " : "Genres: ") </b>
+    @foreach (var genre in Model.TaggedGenres)
+    {
+        <a href="/Genre/Details/@genre.genre_id">@genre.genre_name</a> <a style="color: red" href="/Anime/UnAssociate/@Model.SelectedAnime.anime_id?genre_id=@genre.genre_id">[x]</a><br/>
+    }
+</div>
+<div>
+    <b>Add More Genres</b>
+    <form method="post" action="/Anime/Associate/@Model.SelectedAnime.anime_id">
+        <select name="genre_id">
+            @foreach (var genre in Model.AvailableGenres)
+            {
+                <option value="@genre.genre_id">@genre.genre_name</option>
+            }
+        </select>
+        <input type="submit" value="+" />
+    </form>
+</div>
+
 <div><b>Status: </b>@Model.SelectedAnime.status</div>
 <div><b>Airing Start Date: </b>@Model.SelectedAnime.start_date</div>
 <div><b>Airing End Date: </b>@Model.SelectedAnime.end_date</div>

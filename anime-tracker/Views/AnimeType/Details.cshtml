@@ -5,15 +5,25 @@
 }
 
 <div>
-    <h2>@Model.SelectedAnimeType.anime_type_name Anime</h2>
+    @if (Model.SelectedAnimeType.anime_type_name == "TV Series")
+    {
+        <h2>Anime <span>@Model.SelectedAnimeType.anime_type_name</span></h2>
+    }
+    else
+    {
+        <h2>Anime <span>@Model.SelectedAnimeType.anime_type_name</span>s</h2>
+    }
     <nav>
         <h5>| <a href="/AnimeType/List"><b>Return</b> to List of Anime Types</a> |</h5>
     </nav>
 </div>
 <div>
-
-   @foreach (var anime in Model.RelatedAnimeTypes)
-   {
-        <a href="/Anime/Details/@anime.anime_id">@anime.anime_title</a>
-   }
+    <ol>
+        @foreach (var anime in Model.RelatedAnimes)
+        {
+            <li>
+                <i><a href="/Anime/Details/@anime.anime_id">@anime.anime_title</a></i>
+            </li>
+        }
+    </ol>
 </div>
