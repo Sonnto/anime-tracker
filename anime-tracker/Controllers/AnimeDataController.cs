@@ -68,6 +68,9 @@ namespace anime_tracker.Controllers
                 rating = a.rating,
                 favorite = a.favorite,
             }));
+
+            Debug.WriteLine("AnimeDataController.cs: the anime_type_id is: " + AnimeDtos);
+
             return Ok(AnimeDtos);
         }
 

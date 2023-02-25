@@ -16,11 +16,12 @@
 
 <h3>Information</h3>
 <div><b>Type: </b>@Model.SelectedAnime.anime_type_name</div>
+@* <div><b>Type ID: </b>@Model.SelectedAnime.anime_type_id</div> *@
 <div>
     <b>@(Model.TaggedGenres.Count() <= 1 ? "Genre: " : "Genres: ") </b>
     @foreach (var genre in Model.TaggedGenres)
     {
-        <a href="/Genre/Details/@genre.genre_id">@genre.genre_name</a> <a style="color: red" href="/Anime/UnAssociate/@Model.SelectedAnime.anime_id?genre_id=@genre.genre_id">[x]</a><br/>
+        <a href="/Genre/Details/@genre.genre_id">@genre.genre_name</a> <a style="color: red" href="/Anime/UnAssociate/@Model.SelectedAnime.anime_id?genre_id=@genre.genre_id">[x]</a><br />
     }
 </div>
 <div>

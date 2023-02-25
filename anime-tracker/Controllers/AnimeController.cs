@@ -57,11 +57,20 @@ namespace anime_tracker.Controllers
             Debug.WriteLine("The response code is ");
             Debug.WriteLine(response.StatusCode);
 
-            AnimeDto selectedAnime = response.Content.ReadAsAsync<AnimeDto>().Result;
-            Debug.WriteLine("Anime received: ");
-            Debug.WriteLine(selectedAnime.anime_title);
+            AnimeDto SelectedAnime = response.Content.ReadAsAsync<AnimeDto>().Result;
+            Debug.WriteLine("AnimeController.cs: Anime received: " + SelectedAnime.anime_title);
+            Debug.WriteLine("AnimeController.cs: " + SelectedAnime.anime_title + "'s  anime_type_id is: " + SelectedAnime.anime_type_id);
+            Debug.WriteLine("AnimeController.cs: However, the anime_type_name is: " + SelectedAnime.anime_type_name);
+            Debug.WriteLine("AnimeController.cs: " + SelectedAnime.anime_title + "'s Anime ID value: " + SelectedAnime.anime_id);
+            Debug.WriteLine("AnimeController.cs: " + SelectedAnime.anime_title + "'s Start Date value: " + SelectedAnime.start_date);
+            Debug.WriteLine("AnimeController.cs: " + SelectedAnime.anime_title + "'s End Date value: " + SelectedAnime.end_date);
+            Debug.WriteLine("AnimeController.cs: " + SelectedAnime.anime_title + "'s Activity value: " + SelectedAnime.activity);
+            Debug.WriteLine("AnimeController.cs: " + SelectedAnime.anime_title + "'s Completed Eps value: " + SelectedAnime.completed_episodes);
+            Debug.WriteLine("AnimeController.cs: " + SelectedAnime.anime_title + "'s Total Eps value: " + SelectedAnime.total_episodes);
+            Debug.WriteLine("AnimeController.cs: " + SelectedAnime.anime_title + "'s Rating value: " + SelectedAnime.rating+"/10");
+            Debug.WriteLine("AnimeController.cs: "+SelectedAnime.anime_title + "'s Favourite value: " + SelectedAnime.favorite);
 
-            ViewModel.SelectedAnime = selectedAnime;
+            ViewModel.SelectedAnime = SelectedAnime;
 
             //show associated genres with this anime between here
 
@@ -115,8 +124,6 @@ namespace anime_tracker.Controllers
             return View();
         }
 
-        // GET: Anime/New
-        // =============================================WORKING ON THIS PART==========================================================================================================================
         public ActionResult New()
         {
             //Information about Anime Types and Genres
@@ -161,6 +168,7 @@ namespace anime_tracker.Controllers
         }
 
         // GET: Anime/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             UpdateAnime ViewModel = new UpdateAnime();
@@ -169,8 +177,12 @@ namespace anime_tracker.Controllers
             
             string url = "animedata/findanime/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            AnimeDto selectedAnime = response.Content.ReadAsAsync<AnimeDto>().Result;
-            ViewModel.SelectedAnime = selectedAnime;
+            AnimeDto SelectedAnime = response.Content.ReadAsAsync<AnimeDto>().Result;
+
+            Debug.WriteLine("AnimeController.cs: selectedAnime's anime_type_id: " + SelectedAnime.anime_type_id);
+            Debug.WriteLine("AnimeController.cs: Anime id for edit is: " + id);
+
+            ViewModel.SelectedAnime = SelectedAnime;
 
 
 
@@ -178,6 +190,8 @@ namespace anime_tracker.Controllers
             url = "animetypedata/listanimetypes/";
             response = client.GetAsync(url).Result;
             IEnumerable<AnimeTypeDto> AnimeTypesOptions = response.Content.ReadAsAsync<IEnumerable<AnimeTypeDto>>().Result;
+
+            Debug.WriteLine("AnimeController.cs: AnimeTypesOptions: " + AnimeTypesOptions);
 
             ViewModel.AnimeTypesOptions = AnimeTypesOptions;
 
@@ -212,8 +226,8 @@ namespace anime_tracker.Controllers
         {
             string url = "animedata/findanime/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            AnimeDto selectedAnime = response.Content.ReadAsAsync<AnimeDto>().Result;
-            return View(selectedAnime);
+            AnimeDto SelectedAnime = response.Content.ReadAsAsync<AnimeDto>().Result;
+            return View(SelectedAnime);
         }
 
         // POST: Anime/Delete/5

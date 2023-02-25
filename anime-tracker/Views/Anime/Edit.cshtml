@@ -6,14 +6,15 @@
 <div>
     <h2>Update Anime: <i>@Model.SelectedAnime.anime_title</i></h2>
     <nav>
-        <h5>| <a href="/Anime/Details/@Model.SelectedAnime.anime_id"><b>Cancel Editing & Return</b> to Anime Details</a> |
+        <h5>
+            | <a href="/Anime/Details/@Model.SelectedAnime.anime_id"><b>Cancel Editing & Return</b> to Anime Details</a> |
         </h5>
     </nav>
 </div>
 
 <form action="/Anime/Update/@Model.SelectedAnime.anime_id" method="POST">
     <div style="display:none;">
-        @* Pass through the animal ID *@
+        @* Pass through the anime ID *@
         <input type="text" name="anime_id" value="@Model.SelectedAnime.anime_id" />
     </div>
     <div>
@@ -24,11 +25,12 @@
         <select name="anime_type_id">
             @foreach (var animeType in Model.AnimeTypesOptions)
             {
-                var selected = "";
-                if (animeType.anime_type_id == Model.SelectedAnime.anime_type_id)
-                {
-                    selected = "selected";
-                }
+                System.Diagnostics.Debug.WriteLine("Foreach loop has begun");
+                System.Diagnostics.Debug.WriteLine("AnimeType ID being looped is: " +animeType.anime_type_id);
+                System.Diagnostics.Debug.WriteLine("Selected Anime's Current Type is: " + Model.SelectedAnime.anime_type_id);
+
+                var selected = animeType.anime_type_id == Model.SelectedAnime.anime_type_id ? "selected" : "";
+
                 <option value="@animeType.anime_type_id" @selected>@animeType.anime_type_name</option>
             }
         </select>

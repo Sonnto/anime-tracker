@@ -12,5 +12,3 @@ namespace anime_tracker.Models.ViewModels
         public IEnumerable<AnimeDto> RelatedAnimes { get; set; }
     }
 }
-
-// VIEWS AND MODEL, @ 38:50 (GO TRY AND DO UPDATE AND DELETE BEFORE COMING BACK TO THIS)

@@ -34,7 +34,8 @@ namespace anime_tracker.Models
 
         public int anime_id { get; set; }
         public string anime_title { get; set; }
-        public int anime_type_id { get; set; } 
+        public int anime_type_id { get; set; }
+        public virtual AnimeType AnimeTypes { get; set; }
         public string anime_type_name { get; set; }
         public string status { get; set; }
         public DateTime start_date { get; set; }
