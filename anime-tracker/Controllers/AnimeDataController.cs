@@ -163,6 +163,7 @@ namespace anime_tracker.Controllers
             {
                 anime_id = anime.anime_id,
                 anime_title = anime.anime_title,
+                anime_type_id = anime.anime_type_id,
                 anime_type_name = anime.AnimeTypes.anime_type_name,
                 status = anime.status,
                 start_date = anime.start_date,
